@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div class="main info">
+        <p>Round: <span id="round"></span></p>
+    </div>
+    <hr>
+    <div id="container hero" class="container hero">
+        <p id="" class="skill">Name: <span id="heroName"></span></p>
+        <p id="" class="skill">XP: <span id="heroXP"></span></p>
+        <p id="" class="skill">Attack: <span id="heroAttack"></span></p>
+        <p id="" class="skill">Defense: <span id="heroDefense"></span></p>
+    </div>
+    <hr>
+    <div id="container evil" class="container evil">
+        <p id="" class="skill">Name: <span id="evilName"></span></p>
+        <p id="" class="skill">XP: <span id="evilXP"></span></p>
+        <p id="" class="skill">Attack: <span id="evilAttack"></span></p>
+        <p id="" class="skill">Defense: <span id="evilDefense"></span></p>
+    </div>
+    <hr>
+    <button id="button">next turn</button>
+    <hr>
+    <button id="heal">heal</button>
+    <button id="extradamage">extradamage</button>
+    <button id="extradefense">extradefense</button>
+
+
+
+
+
+
+
+    <script>
+        let heroName = "heroName";
+        let evilName = "evilName";
+        let heroXP = 30;
+        let evilXP = 30;
+        let heroAttack = 4;
+        let evilAttack = 6;
+        let heroDefense = 3;
+        let evilDefense = 3;
+        let counter = 0;
+
+        function start() {
+            document.getElementById("heroName").innerHTML = heroName;
+            document.getElementById("heroXP").innerHTML = heroXP;
+            document.getElementById("heroAttack").innerHTML = heroAttack;
+            document.getElementById("heroDefense").innerHTML = heroDefense;
+
+            document.getElementById("evilName").innerHTML = evilName;
+            document.getElementById("evilXP").innerHTML = evilXP;
+            document.getElementById("evilAttack").innerHTML = evilAttack;
+            document.getElementById("evilDefense").innerHTML = evilDefense;
+
+            document.getElementById("round").innerHTML = counter;
+
+        }
+        start();
+
+        document.getElementById('button').addEventListener('click', go);
+        function go() {
+
+            evilAttack > heroDefense ? heroXP = heroXP + (heroDefense - evilAttack) : null;
+            document.getElementById("heroXP").innerHTML = heroXP;
+            heroAttack > evilDefense ? evilXP = evilXP + (evilDefense - heroAttack) : null;
+            document.getElementById("evilXP").innerHTML = evilXP;
+
+            if (heroXP <= 0) {
+                alert(`hero defeted at round ${counter}!`);
+                document.getElementById("container hero").hidden = true;
+                document.getElementById("button").hidden = true;
+
+            }
+            if (evilXP <= 0) {
+                alert(`evil defeted at round ${counter}!`)
+                document.getElementById("container evil").hidden = true;
+                document.getElementById("button").hidden = true;
+            }
+
+            ++counter;
+            document.getElementById("round").innerHTML = counter;
+
+            return heroXP && evilXP && counter;
+
+        }
+
+        document.getElementById('heal').addEventListener('click', heal);
+        function heal() {
+            heroXP += 10;
+            document.getElementById("heroXP").innerHTML = heroXP;
+            document.getElementById("heal").hidden = true;
+            return heroXP;
+        }
+        document.getElementById('extradamage').addEventListener('click', extradamage);
+        function extradamage() {
+            evilXP -= 10;
+            document.getElementById("evilXP").innerHTML = evilXP;
+            document.getElementById("extradamage").hidden = true;
+            return evilXP;
+        }
+        document.getElementById('extradefense').addEventListener('click', extradefense);
+        function extradefense() {
+            heroDefense += 2;
+            document.getElementById("heroDefense").innerHTML = heroDefense;
+            document.getElementById("extradefense").hidden = true;
+            return heroDefense;
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
